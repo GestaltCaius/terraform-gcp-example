@@ -21,3 +21,8 @@ variable "cloud_run" {
     image  = string
   }))
 }
+
+variable "bucket_name" {
+  type        = string
+  description = "a bucket name"
+}

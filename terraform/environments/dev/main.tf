@@ -3,7 +3,7 @@ terraform {
   required_version = ">= 1.4.6, < 2.0.0"
 
   backend "gcs" {
-    bucket = "tf-example-tf-state-8dwqhd8f"
+    bucket = "tf-state-dqwdqdqdfew785fw68ewf"
     prefix = "terraform/state"
   }
 }
@@ -11,8 +11,8 @@ terraform {
 module "buckets" {
   source = "../../modules/buckets"
 
-  region       = "europe-west9"
-  project_id   = "rgu-sandbox-gcp-e8a1"
+  region       = var.region
+  project_id   = var.project_id
   buckets_name = ["my-bucket-example", "example-data", "archive-data"]
 
 }
@@ -20,8 +20,10 @@ module "buckets" {
 module "cloud_run" {
   source = "../../modules/cloud_run"
 
-  region     = "europe-west9"
-  project_id = "rgu-sandbox-gcp-e8a1"
+  bucket_name = module.buckets.bucket_name # module output value usage example
+
+  region     = var.region
+  project_id = var.project_id
   cloud_run = {
     "cloud-run1" = {
       "name" : "hello-world",

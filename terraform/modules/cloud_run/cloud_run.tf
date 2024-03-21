@@ -2,6 +2,8 @@ resource "google_cloud_run_v2_service" "cloud_run" {
 
   for_each = var.cloud_run
 
+  description = var.bucket_name
+
   name     = each.value.name
   location = var.region
   ingress  = "INGRESS_TRAFFIC_ALL"
