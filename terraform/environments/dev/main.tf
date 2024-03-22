@@ -11,19 +11,20 @@ terraform {
 module "buckets" {
   source = "../../modules/buckets"
 
-  region       = var.region
-  project_id   = var.project_id
-  buckets_name = ["my-bucket-example", "example-data", "archive-data"]
-
+  region         = var.region
+  project_id     = var.project_id
+  default_labels = var.gcp_labels
+  buckets_name   = ["my-bucket-example", "example-data", "archive-data"]
 }
 
 module "cloud_run" {
   source = "../../modules/cloud_run"
 
-  bucket_name = module.buckets.bucket_name # module output value usage example
+  region         = var.region
+  project_id     = var.project_id
+  default_labels = var.gcp_labels
+  bucket_name    = module.buckets.bucket_name # module output value usage example
 
-  region     = var.region
-  project_id = var.project_id
   cloud_run = {
     "cloud-run1" = {
       "name" : "hello-world",

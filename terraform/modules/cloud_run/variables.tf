@@ -26,3 +26,8 @@ variable "bucket_name" {
   type        = string
   description = "a bucket name"
 }
+
+variable "default_labels" {
+  description = "Default labels applied to all GCP resources"
+  type        = map(string)
+}
